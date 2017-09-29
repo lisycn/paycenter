@@ -1,0 +1,77 @@
+
+/*注册公司专题页面*/
+.ztreg-banner{width: 100%;height: 500px;background: #227AD4 url('../images/zt/regcom/zt_banner.jpg')  no-repeat center;}
+.ztreg-banner .ban-box{width: 1200px;margin: 0 auto;height: 500px;position: relative;}
+.ztreg-banner .ban-box p.text{font-size: 30px; color: #fff;position: absolute;top: 280px;left: 390px}
+.ztreg-banner .ban-box a.login-btn{display: inline-block;width: 180px;text-align: center;height: 58px;line-height: 58px;font-size: 24px;font-weight: bold; color: #fff; background: #ffa200;border-radius: 5px;position: absolute;top: 400px;left: 510px}
+.ztreg-main {width: 100%}
+.ztreg-main .f-step{width: 1200px;margin: 0 auto;padding: 30px 0}
+.ztreg-main .f-step .title{width: 1000px;margin: 0 auto;height: 50px;background: url('../images/index/line_bg.png') center repeat-x }
+.ztreg-main .f-step .title p{font-size: 30px;height: 50px;line-height: 50px;color: #333; width: 330px; text-align: center; margin: 0 auto; padding: 0 10px;background: #fff}
+.ztreg-main .f-step .step-box{width: 1000px;margin: 40px auto 20px}
+.ztreg-main .f-step .step-box ul{overflow: hidden;}
+.ztreg-main .f-step .step-box ul li{width: 210px; text-align: center; height: 40px;line-height: 40px;padding: 100px 20px 10px; font-size: 18px;color: #333; float: left;}
+.ztreg-main .f-step .step-box ul li.s1{background: url('../images/zt/regcom/s1_ico.png')  no-repeat center top;}
+.ztreg-main .f-step .step-box ul li.s2{background: url('../images/zt/regcom/s2_ico.png')  no-repeat center top;}
+.ztreg-main .f-step .step-box ul li.s3{background: url('../images/zt/regcom/s3_ico.png')  no-repeat center top;}
+.ztreg-main .f-step .step-box ul li.s4{background: url('../images/zt/regcom/s4_ico.png')  no-repeat center top;}
+
+.ztreg-main .box1{width: 100%;height: 490px;background: #FEFEFE url('../images/zt/regcom/boxbg1.jpg')  no-repeat center;}
+.ztreg-main .box1 .con{width: 1200px;margin: 0 auto;height: 490px;position: relative;}
+.ztreg-main .box1 .con p.peo{position: absolute;top: 110px;left: 220px}
+.ztreg-main .box1 .con p.name{font-size: 48px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 150px;left: 560px}
+.ztreg-main .box1 .con p.name span{color: #01ac72;font-weight: bold;}
+.ztreg-main .box1 .con span.text1{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 250px;left: 700px}
+.ztreg-main .box1 .con span.text2{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 280px;left: 755px}
+.ztreg-main .box1 .con span.text3{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 310px;left: 730px}
+
+.ztreg-main .box2{width: 100%;height: 490px;background: #fff;}
+.ztreg-main .box2 .con{width: 1200px;margin: 0 auto;height: 490px;position: relative;}
+.ztreg-main .box2 .con p.peo{position: absolute;top: 140px;left: 690px}
+.ztreg-main .box2 .con p.name{font-size: 48px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 150px;left: 160px}
+.ztreg-main .box2 .con p.name span{color: #01ac72;font-weight: bold;}
+.ztreg-main .box2 .con span.text1{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 260px;left: 160px}
+.ztreg-main .box2 .con span.text2{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 290px;left: 250px}
+.ztreg-main .box2 .con span.text3{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 320px;left: 190px}
+
+.ztreg-main .box3{width: 100%;height: 490px;background: #F6FBFE url('../images/zt/regcom/boxbg2.jpg')  no-repeat center;}
+.ztreg-main .box3 .con{width: 1200px;margin: 0 auto;height: 490px;position: relative;}
+.ztreg-main .box3 .con p.peo{position: absolute;top: 140px;left: 250px}
+.ztreg-main .box3 .con p.name{font-size: 48px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 160px;left: 610px}
+.ztreg-main .box3 .con p.name span{color: #01ac72;font-weight: bold;}
+.ztreg-main .box3 .con span.text1{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 260px;left: 710px}
+.ztreg-main .box3 .con span.text2{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 290px;left: 790px}
+.ztreg-main .box3 .con span.text3{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 320px;left: 725px}
+
+.ztreg-main .box4{width: 100%;height: 490px;background:  #fff;}
+.ztreg-main .box4 .con{width: 1200px;margin: 0 auto;height: 490px;position: relative;}
+.ztreg-main .box4 .con p.peo{position: absolute;top: 120px;left: 740px}
+.ztreg-main .box4 .con p.name{font-size: 48px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 150px;left: 185px}
+.ztreg-main .box4 .con p.name1{font-size: 48px;height: 50px;line-height: 50px; font-weight: bold; color: #01ac72;position: absolute;top: 205px;left: 185px}
+.ztreg-main .box4 .con span.text1{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 285px;left: 190px}
+.ztreg-main .box4 .con span.text2{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 315px;left: 295px}
+.ztreg-main .box4 .con span.text3{ display: inline-block; font-size: 14px;height: 20px;line-height: 20px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 345px;left: 210px}
+
+.ztreg-main .box5{width: 100%;height: 490px;background: #FEFEFE url('../images/zt/regcom/boxbg1.jpg')  no-repeat center;}
+.ztreg-main .box5 .con{width: 1200px;margin: 0 auto;height: 490px;position: relative;}
+.ztreg-main .box5 .con p.peo{position: absolute;top: 120px;left: 150px}
+.ztreg-main .box5 .con p.name{font-size: 48px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 100px;left: 430px}
+.ztreg-main .box5 .con p.name1{position: absolute;top: 160px;left: 425px;}
+.ztreg-main .box5 .con p.text-box{position: absolute;top: 250px;left: 430px;}
+.ztreg-main .box5 .con p.text-box span.text{ display: block; font-size: 18px;height: 25px;line-height: 25px; color: #000;padding: 5px 0}
+.ztreg-main .box5 .con p.text-box span.text a{color: #fc3c3c;cursor: text;}
+/*.bl-nav{width: 100%;height: 50px; padding: 20px 0; background: url('../images/zt/regcom/barbg.png')  repeat-x center; display: none;}*/
+.bl-nav{width: 100%;height: 70px; background: url('../images/zt/regcom/barbg.png')  repeat-x center; display: none;}
+.bl-nav-bg{width: 1000px;margin: 0 auto; height: 70px; text-align: center;}
+.bl-nav-bg .item{display: inline-block;float: left;position: relative;}
+.bl-nav-bg .item label{display: inline-block;width: 70px; text-align: right; padding: 0 5px 0 15px;color: #fff;font-size: 16px}
+.bl-nav-bg .item input{width: 230px;padding: 0 10px;border: 1px solid #fff;background: #fff;border-radius: 5px;height: 48px;line-height: 48px;font-size: 16px;color: #333}
+.bl-nav-bg .item a.get-code{position: absolute;top: 10px;right: 5px;display: inline-block;padding: 5px 10px; height: 20px;line-height: 20px; color: #55ACEE; font-size: 14px;background: #eeeeee;border-radius: 2px}
+/*.bl-nav-bg a.btn{width: 150px;height: 50px;line-height: 50px;font-size: 24px;color: #fff;background: #ffa200; border-radius: 5px; float: left; margin: 0 15px; display: inline-block;}*/
+.bl-nav-bg a.btn{width: 300px;height: 70px;line-height: 70px;font-size: 24px;color: #fff;background: #ffa200;  display: inline-block;}
+.bl-nav-bg span.time{display: inline-block;min-width: 60px;padding: 5px 10px;font-size: 16px;color: #999;background: #fff;margin-top: 10px}
+.bl-nav-bg span.time a{color: #ff6666}
+.bl-navxf {position: fixed;bottom: 0px;z-index: 9000;display: block;}
+.bar-bot{padding-bottom: 50px}
+
+

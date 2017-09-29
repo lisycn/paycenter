@@ -1,0 +1,22 @@
+ <div class="top-box">
+        <div class="box-con">
+            <div class="left-box">
+                <span class="item"><a href="javascript:void(0);">欢迎，$!{ue.username}</a></span>
+                <span class="item"><a href="http://www.lvzheng.com/loginout">退出</a></span>
+                <span class="phone"><a href="javascript:void(0);">手机访问小微<b class="v-phone" ><img src="/images/index/ewm.png" ></b></a></span>
+            </div>
+            <div class="right-box">
+                <span class="item">
+               <!--  <a class="new" href="http://www.lvzheng.com/home.html">旧版用户中心</a> -->
+                </span>
+                <span class="item">#if($!{unreadmailcount} > 0)
+		<a href="http://mycenter.lvzheng.com/messagecenter/index.html"
+			class="notice">消息 <span>$!{unreadmailcount}</span></a> 
+			#else
+			<a href="http://mycenter.lvzheng.com/messagecenter/index.html">消息</a> 
+			#end</span>
+                <span class="item"><a target="_self" href="http://mycenter.lvzheng.com/order/unpayorder.html">我的订单</a></span>
+                <span class="call-on"><a href="javascript:void(0);">010-57891402</a></span>
+            </div>
+        </div>
+    </div>

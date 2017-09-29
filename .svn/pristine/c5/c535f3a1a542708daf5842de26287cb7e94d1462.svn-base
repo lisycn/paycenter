@@ -1,0 +1,46 @@
+<div class="buy-pro">
+    <p class="pay-title">订单提交成功，请尽快付款<span  class="yf_top">应付金额：<a>￥$!{payorder.paycount}</a></span></p>
+    <p class="zk-btn"><a class="more bot-arr">订单明细</a></p>
+    <div class="tab" id="morediv">
+        <table>
+        <input type="hidden" id="payorderid" value="$!{payorder.payid}" />
+            <tr>
+                <th width="25%">商品</th>
+                <th width="20%">区域</th>
+                <th width="15%">城市</th>
+                <th width="15%">数量</th>
+                <th width="20%">优惠券</th>
+                <th width="15%">价格</th>
+            </tr>
+            #foreach($order in $orderlist)
+            <tr>
+                <td class="orderid" style="display:none;"><input type="hidden" data-orderid="$!{order.orderid}"/></td>
+                <td>$!{order.proname}</td>
+                <td>$!{order.citystr}</td>
+                <td>$!{order.localstr}</td>
+                <td>$!{order.sellamount}</td>
+                <!-- <td>$!{order.discountprice}</td> -->
+                <td>
+                   <div class="n-select w-220 center" name="n-select">
+                   #if($order.paccount.size() > 0)
+                   #set($ticket = $order.paccount.get(0))
+                   <input class="n-val" type="text" value="$!{ticket.showName}" readonly data-discount="$!{ticket.quota}" data-pacid="$!{ticket.pacid}">
+                   #else
+                      <input class="n-val" type="text" value="无可用优惠券" readonly style="border:none" data-discount="0">
+                   #end
+                   </div>
+                </td>
+                <td><span class="price">¥$!{order.price}</span></td>
+            </tr>
+            #end
+        </table>
+        <div class="total-box">
+             <p class="t1 orderprice">订单价：<span>￥$!{payorder.orderprice}</span></p>
+             <p class="yhq">商品优惠：－￥0</p>
+             <p class="yf">应付金额：<span>￥$!{payorder.paycount}</span></p>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

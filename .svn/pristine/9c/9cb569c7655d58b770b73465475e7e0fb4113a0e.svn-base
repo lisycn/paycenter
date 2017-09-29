@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>小微律政-国内领先的O2O自营法律服务提供商</title>
+<meta name="description" content="注册公司找小微律政,小微律政拥有专业的律师和会计团队,小微律政专注为创业公司及中小微企业提供代办公司注册,商标注册,代理记账,社保公积金开户,公司变更,合同拟定,公司章程等一站式企业服务，小微律政服务流程每一步都无微不至。">
+<meta name="keywords" content="小微律政,代办注册公司,公司注册,商标注册费用和流程" />
+<link href="/css/index.css" type="text/css"  rel="stylesheet"/>
+<link href="/css/box.css" type="text/css"  rel="stylesheet"/>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/js/box.js"></script> 
+<script>
+$(function(){
+    // 选择支付方式
+    $(".type-box li").each(function(){
+        $(this).click(function(){
+            $(".type-box li").addClass("b-box").removeClass("checked");
+            $(this).addClass("checked").removeClass("b-box");
+        })
+    });
+
+    $('a.more').bind('click', function () { 
+        var txt = $('a.more').text(); 
+        if (txt == '订单明细') { 
+            $('#morediv').show(); 
+            $('a.more').text('收起详情').addClass('top-arr').removeClass('bot-arr'); 
+        } else { 
+            $('#morediv').hide(); 
+            $('a.more').text('订单明细').removeClass('top-arr').addClass('bot-arr'); 
+        } 
+    }) 
+});
+</script>
+</head>
+<body>
+<div id="continer">
+	<!-- 顶部信息条 -->
+    #parse("views/common/toper.html")
+
+    <!-- logo区域 -->
+    <div class="logo-box">
+        <a href="http://www.lvzheng.com" class="logo"></a>
+        <span class="order-info">订单信息</span>
+        <div class="flow-box">
+            <a href="javascript:void(0);" class="over">
+                <span class="num">1</span>
+                <span class="name">1.购买商品</span>
+            </a>
+            <a href="javascript:void(0);" class="over">
+                <span class="num">2</span>
+                <span class="name">2.提交订单</span>
+            </a>
+            <a href="javascript:void(0);" class="on">
+                <span class="num">3</span>
+                <span class="name">3.支付到小微</span>
+            </a>
+            <a href="javascript:void(0);" class="un">
+                <span class="num">4</span>
+                <span class="name">4.开始小微服务</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 订单详情 -->
+    <div class="order-box">
+        <!-- 购买的商品 -->
+        #parse("views/ordercommon/orderlist.html")
+
+        <div class="pay-type">
+            <p class="type-title">微信支付</p>
+            <div class="wx-pay">
+                <p class="ewm"><img src="/wxpay/qrcode/?orderid=$!{payorder.payid}"></p>
+            </div>
+            <div class="other-pay"><a target="_self" href="/reqpay/$!{payorder.payid}">< 选择其他支付方式</a></div>
+        </div>
+
+    </div>
+    
+  
+    <!-- 网站底部 -->
+    <div class="bot-main">
+       #parse("views/common/footer.html")
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+var pid = $!{payorder.payid};
+
+var returl = "";
+#if($reurl)
+	returl = "$!{reurl}";
+#end
+
+var setinternal ;
+
+var InterValObj;
+
+$(window).load(function(){
+	InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次  
+});
+
+var SetRemainTime = function(){
+	var url = "/checkpay/"+pid;
+	$.ajax({url:url,
+		dataType:"json",
+		success:function(data){
+			if(data.ret == "ok"){
+				if(returl != ""){
+					window.location.href = returl;
+				}else{
+					window.location.href = "/payresult/"+pid;
+				}
+			}
+		}});
+}
+</script>
+</html>

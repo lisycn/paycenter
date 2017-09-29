@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>小微律政-国内领先的O2O自营法律服务提供商</title>
+<meta name="description" content="注册公司找小微律政,小微律政拥有专业的律师和会计团队,小微律政专注为创业公司及中小微企业提供代办公司注册,商标注册,代理记账,社保公积金开户,公司变更,合同拟定,公司章程等一站式企业服务，小微律政服务流程每一步都无微不至。">
+<meta name="keywords" content="小微律政,代办注册公司,公司注册,商标注册费用和流程" />
+<link href="/css/index.css" type="text/css"  rel="stylesheet"/>
+
+
+</head>
+<body>
+<div id="continer">
+	<!-- 顶部信息条 -->
+    #parse("views/common/toper.html")
+    </div>
+
+    <!-- logo区域 -->
+    <div class="logo-box">
+        <a href="http://www.lvzheng.com" class="logo"></a>
+        <span class="order-info">订单信息</span>
+        <div class="flow-box">
+            <a href="" class="over">
+                <span class="num">1</span>
+                <span class="name">1.购买商品</span>
+            </a>
+            <a href="" class="over">
+                <span class="num">2</span>
+                <span class="name">2.提交订单</span>
+            </a>
+            <a href="" class="over">
+                <span class="num">3</span>
+                <span class="name">3.支付到小微</span>
+            </a>
+            <a href="" class="on">
+                <span class="num">4</span>
+                <span class="name">4.开始小微服务</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="status-box">
+        <div class="status-info">
+            <div class="status-con">
+                <p class="status-t1">尚未成功支付！</p>
+                <p class="status-t2">如果您已付款，可能因为系统原因造成的确认延迟<br>您可稍后 <a href="#">刷新本页面</a> 或前往 <a href="$!{orderurl}">订单详情</a> 确查看支付情况</p>
+            </div>
+        </div>
+        <div class="unpay-box">
+            <p class="unpay-t1">以下交易单尚未成功支付，请您尽快完成支付！</p>
+            <div class="unpay-info">
+                <p class="t1">交易单号：<span>$!{order.payid}</span></p>
+                <p class="t1">应付金额：<span>￥$!{order.paycount}</span></p>
+                <p class="t2"><a class="btn" href="/reqpay/$!{order.payid}">立即付款</a></p>
+            </div>
+        </div>
+        <div class="pay-question">
+            <p class="question-t1">付款遇到问题：</p>
+            <ul>
+                <li>
+                    <p class="t1">没有网上银行，怎样用储蓄卡付款？</p>
+                    <p class="t2">快捷支付是支付宝联合各大银行推出的全新的支付方式。只要您有银行卡，就可以在支付宝付款。付款时无需登录网上银行凭支付宝支付密码和手机校验码即可完成付款。您可使用储蓄卡快捷支付轻松完成付款。</p>
+                </li>
+                <li>
+                    <p class="t1">没有网上银行，怎样用储蓄卡付款？</p>
+                    <p class="t2">快捷支付是支付宝联合各大银行推出的全新的支付方式。只要您有银行卡，就可以在支付宝付款。付款时无需登录网上银行凭支付宝支付密码和手机校验码即可完成付款。您可使用储蓄卡快捷支付轻松完成付款。</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+
+    <!-- 网站底部 -->
+    <div class="bot-main">
+       <!-- 友情连接 -->
+        #("views/common/downlist")
+        
+        <!-- 底部宣传 -->
+      #parse("views/common/footer.html")
+      
+    </div>
+
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<img src="/images/zhifuwaiting.gif"/>
+<div style="display:none;">
+<form id="zfbpaymentform" action="https://mapi.alipay.com/gateway.do?_input_charset=utf-8" enctype="multipart/form-data" method="post">
+
+service:<input type="text" name="service" value="alipay.wap.create.direct.pay.by.user"/><br>
+partner:<input type="text" name="partner" value="$!{partner}"/><br>
+sign_type:<input type="text" name="sign_type" value="MD5"/><br>
+out_trade_no:<input type="text" name="out_trade_no" value="$!{orderid}"/><br>
+subject:<input type="text" name="subject" value="$!{subject}"/><br>
+payment_type:<input type="text" name="payment_type" value="1"/><br>
+total_fee:<input type="text" name="total_fee" #if($ttt == "99999999") value="0.01" #else value="$!{total_fee}"#end/><br>
+sign:<input type="text" name="sign" value="$!{sign}"/><br>
+seller_id:<input type="text" name="seller_id" value="$!{partner}"/><br>
+return_url:<input type="text" name="return_url" value="$!{return_url}"/><br>
+notify_url:<input type="text" name="notify_url" value="$!{notify_url}"/><br>
+enable_paymethod:<input type="text" name="enable_paymethod" value="directPay^bankPay^cartoon^cash"/><br>
+show_url:<input type="text" name="show_url" value="http://pay.lvzheng.com/m/payresult/$!{orderid}"/><br>
+<input type="submit">确认</submit>
+</form>
+</div>
+</body>
+<script type="text/javascript">
+$("#zfbpaymentform").submit();
+</script>
+</html>

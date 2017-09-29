@@ -1,0 +1,121 @@
+package com.jx.blackface.paycenter.buzs;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.jx.blackface.gaea.sell.contract.ILvzSellProductService;
+import com.jx.blackface.gaea.sell.entity.LvzSellProductEntity;
+import com.jx.blackface.gaea.usercenter.contract.IAreasService;
+import com.jx.blackface.gaea.usercenter.entity.BFAreasEntity;
+import com.jx.blackface.paycenter.frame.PSF;
+import com.jx.blackface.paycenter.vo.OrderPayvo;
+import com.jx.blackface.paycenter.vo.SingleOrderPayvo;
+import com.jx.blackface.servicecoreclient.contract.IOrderBFGService;
+import com.jx.blackface.servicecoreclient.entity.OrderBFGEntity;
+
+public class QueryBuz {
+
+	public static QueryBuz qb = new QueryBuz();
+	private static IOrderBFGService os = PSF.getOrderBFGService();
+	private static IAreasService as = PSF.getAreaService();
+	private static ILvzSellProductService ss = PSF.getSellProductService();
+	
+	/**
+	 * 根据payid获取单品订单详情
+	 * @author zx
+	 * @param payid
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SingleOrderPayvo> queryOrderBypayid(long payid)throws Exception{
+		List<SingleOrderPayvo> list = new ArrayList<SingleOrderPayvo>();
+		String condition = "payid="+payid+" ";
+		List<OrderBFGEntity> olist = os.getOrderListBycondition(condition, 1, 99, "orderid");
+		if(null != olist && olist.size() > 0){
+			for(OrderBFGEntity ofg : olist){
+				SingleOrderPayvo ov = tranceSingleOrderVo(ofg);
+				list.add(ov);
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 根据payid获取订单列表
+	 * @param payid
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OrderPayvo> queryOrderlistBypayid(long payid)throws Exception{
+		List<OrderPayvo> list = new ArrayList<OrderPayvo>();
+		String condition = "payid="+payid+" ";
+		List<OrderBFGEntity> olist = os.getOrderListBycondition(condition, 1, 99, "orderid");
+		if(null != olist && olist.size() > 0){
+			for(OrderBFGEntity ofg : olist){
+				OrderPayvo ov = tranceOrder2vo(ofg);
+				list.add(ov);
+			}
+		}
+		return list;
+	}
+	public OrderPayvo tranceOrder2vo(OrderBFGEntity ofe)throws Exception{
+		OrderPayvo pvo = new OrderPayvo();
+		if(null != ofe){
+			pvo.setOrderid(ofe.getOrderid());
+			pvo.setLocalid(ofe.getLocalid());
+			BFAreasEntity afe = as.getAeasEntityById(ofe.getLocalid());
+			pvo.setLocalstr(afe.getName());
+			int paid = Integer.parseInt(afe.getParentid());
+			if(paid > 0){
+				BFAreasEntity pa = as.getAeasEntityById(paid);
+				pvo.setCityid(paid);
+				pvo.setCitystr(pa.getName());
+			}
+			pvo.setPrice(ofe.getOrderprice());
+			pvo.setDiscountprice(ofe.getOrderprice() - ofe.getPaycount());
+			long sellerid = ofe.getSellerid();
+			if(sellerid > 0){
+				LvzSellProductEntity seen = ss.getSellProductEntityById(sellerid);
+				if(null != seen){
+					pvo.setProname(seen.getSell_product_name());
+					pvo.setSellamount(seen.getSell_amount());
+				}
+			}
+		}
+		return pvo;
+	}
+	
+	public SingleOrderPayvo tranceSingleOrderVo(OrderBFGEntity ofe)throws Exception{
+		SingleOrderPayvo pvo = new SingleOrderPayvo();
+		if(null != ofe){
+			pvo.setOrderid(ofe.getOrderid());
+			pvo.setLocalid(ofe.getLocalid());
+			BFAreasEntity afe = as.getAeasEntityById(ofe.getLocalid());
+			pvo.setLocalstr(afe.getName());
+			int paid = Integer.parseInt(afe.getParentid());
+			if(paid > 0){
+				BFAreasEntity pa = as.getAeasEntityById(paid);
+				pvo.setCityid(paid);
+				pvo.setCitystr(pa.getName());
+			}
+			pvo.setPrice(ofe.getPaycount());
+			long sellerid = ofe.getSellerid();
+			if(sellerid > 0){
+				LvzSellProductEntity seen = ss.getSellProductEntityById(sellerid);
+				if(null != seen){
+					pvo.setProname(seen.getSell_product_name());
+					pvo.setOriginalPrice(seen.getSell_overprice());//获取商品成交价格
+					
+					//优惠价格 有可能优惠券叠加  直接做计算  不从库里取值了   
+					float originalprice = seen.getSell_overprice();
+					float pricenow = ofe.getPaycount();
+					BigDecimal bd = BigDecimal.valueOf(originalprice - pricenow);
+					float coupons =bd.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+					pvo.setCoupons(coupons);
+				} 
+			}
+		}
+		return pvo;
+	}
+}

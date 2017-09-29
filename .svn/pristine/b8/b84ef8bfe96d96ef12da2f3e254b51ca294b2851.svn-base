@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>小微律政-国内领先的O2O自营法律服务提供商</title>
+<meta name="description" content="注册公司找小微律政,小微律政拥有专业的律师和会计团队,小微律政专注为创业公司及中小微企业提供代办公司注册,商标注册,代理记账,社保公积金开户,公司变更,合同拟定,公司章程等一站式企业服务，小微律政服务流程每一步都无微不至。">
+<meta name="keywords" content="小微律政,代办注册公司,公司注册,商标注册费用和流程" />
+<link href="/css/index.css" type="text/css"  rel="stylesheet"/>
+<link href="/css/box.css" type="text/css"  rel="stylesheet"/>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<script>
+$(function(){
+    // 选择支付方式
+    $(".type-box li").each(function(){
+        $(this).click(function(){
+            $(".type-box li").addClass("b-box").removeClass("checked");
+            $(this).addClass("checked").removeClass("b-box");
+        })
+    });
+
+   /*  $('a.more').bind('click', function () { 
+        var txt = $('a.more').text(); 
+        if (txt == '订单明细') { 
+            $('#morediv').show(); 
+            $('a.more').text('收起详情').addClass('top-arr').removeClass('bot-arr'); 
+        } else { 
+            $('#morediv').hide(); 
+            $('a.more').text('订单明细').removeClass('top-arr').addClass('bot-arr'); 
+        } 
+    }); */
+});
+</script>
+</head>
+<body>
+<div id="continer">
+	<!-- 顶部信息条 -->
+   #parse("views/common/toper.html")
+
+    <!-- logo区域 -->
+    <div class="logo-box">
+        <a href="http://www.lvzheng.com" class="logo"></a>
+        <span class="order-info">订单信息</span>
+        <div class="flow-box">
+            <a href="javascript:void(0);" class="over">
+                <span class="num">1</span>
+                <span class="name">1.购买商品</span>
+            </a>
+            <a href="javascript:void(0);" class="on">
+                <span class="num">2</span>
+                <span class="name">2.提交订单</span>
+            </a>
+            <a href="javascript:void(0);" class="un">
+                <span class="num">3</span>
+                <span class="name">3.支付到小微</span>
+            </a>
+            <a href="javascript:void(0);" class="un">
+                <span class="num">4</span>
+                <span class="name">4.享受小微服务</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 订单详情 -->
+    <div class="order-box">
+        <!-- 购买的商品 -->
+        #parse("views/ordercommon/orderlist.html")
+        
+
+        <div class="pay-type">
+            <p class="type-title">选择支付方式</p>
+            <div class="type-box">
+                <div class="list">
+                    <p class="pt">支付平台</p>
+                    <div class="type-list">
+                        <ul>
+                            <li class="b-box" value="1" name="paytype"><img src="/images/pay/type/zfb.png"></li>
+                            <li class="b-box" value="2" name="paytype"><img src="/images/pay/type/wx.png"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-box">
+            <a id="paymentbutton" href="javascript:void(0);" class="btn pop_box1">确认付款</a>
+            <form id="payhiddenbutton" style="display:none;" target="_blank"></form>
+        </div>
+    </div>
+    
+    <!-- 请付款 弹出框 -->
+    <div class="cd-popup cd-box1" role="alert"> 
+        <div class="cd-popup-container p-pay-box">
+            <div class="p-pay">
+                <h4>请付款</h4>
+                <p class="pay_tx">请您在新打开的页面上完成付款</p>
+                <ul class="pay_c">
+                    <li>付款完成前请不要关闭此窗口</li>
+                    <li>完成付款后请根据您的情况点击下面的按钮</li>
+                </ul>
+                <div class="pay_btn">
+                    <a class="padding_r" href="/payresult/$!{payorder.payid}">已完成付款</a>
+                    <a href="/payresult/$!{payorder.payid}">付款遇到问题</a>
+                </div>
+                <p class="pay_back"> <a href="javascript:void(0);" class="a_pay_back">>> 返回选择其他支付方式</a></p>
+            </div> 
+            <a href="javascript:void(0);" class="cd-popup-close img-replace">关闭</a>
+        </div>
+    </div> 
+    <!-- 弹出框 -->      
+
+
+    <!-- 网站底部 -->
+    <div class="bot-main">
+       #parse("views/common/footer.html")
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+//open popup
+$('.pop_box1').on('click', function(event){
+	event.preventDefault();
+	var arry = $("li[name='paytype'].checked");
+	
+	if(arry.length > 0){
+		//遍历优惠券信息，设置优惠券和订单状态
+		preSubmit();
+	}else{
+		alert("请选择支付方式！");
+		return false;
+	}
+	$('.cd-box1').addClass('is-visible');
+});
+//close popup
+$('.cd-box1').on('click', function(event){
+	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-box1') || $(event.target).is(".a_pay_back")) {
+		event.preventDefault();
+		$(this).removeClass('is-visible');
+	}
+});
+$('[name="n-select"]').click(function(e){
+    $('[name="n-select"]').find('ul').hide();
+    $(this).find('ul').show();
+    e.stopPropagation();
+});
+$('[name="n-select"] li').hover(function(e){
+    $(this).toggleClass('on');
+    e.stopPropagation();
+});
+$('[name="n-select"] li').each(function(){
+	var o = $(this);
+	o.click(function(e){
+		var val = $(this).text();
+	      var dataVal = $(this).attr("data-value");
+	      var dataPacid = $(this).attr("data-pacid");
+	      var oldDataPacid = $(this).parents('[name="n-select"]').find('input').attr("data-pacid");
+	      $(this).parents('[name="n-select"]').find('input').val(val).attr("data-discount",dataVal).attr("data-pacid",dataPacid);
+	      
+	      $('[name="n-select"] ul').hide();
+	      //计算优惠券价格
+	      if(oldDataPacid != dataPacid){
+	    	  calculatePrice();
+	      }
+	      e.stopPropagation();
+	});
+});
+  $(document).click(function(){
+      $('[name="n-select"] ul').hide();
+  });
+  
+  function calculatePrice(){
+	  var discount = $(".yhq").text();
+      discount = discount.substring(0,discount.indexOf("￥")+1);
+      var discountPrice = 0;
+      $('[name="n-select"]').find('input').each(function(){
+    	  if(!!$(this).attr("data-discount")){
+    		  discountPrice += parseFloat($(this).attr("data-discount"));
+    	  }
+      })
+      if(discountPrice > 0){
+    	  $(".yhq").text(discount + discountPrice);
+    	  var curPayCount = $(".yf").text();
+          curPayCount = curPayCount.substring(0, curPayCount.indexOf("￥") + 1);
+          $(".yf").text(curPayCount + (parseFloat($(".orderprice").text().substring($(".orderprice").text().indexOf("￥")+1)) - discountPrice).toFixed(2));
+          $(".yf_top").text($(".yf").text());
+      }
+  }
+  
+  function preSubmit(){
+	  var payDiscount = false;
+		 var orderDiscount = false;
+		 var param = {};
+	  /* 优惠活动用的扩展 */
+		 /* var payorderid = $("#payorderid").val();
+		 param[payorderid] = ""; */
+		 $('[name="n-select"]').find('input').each(function(e){
+			 var pacid;
+			 if(!!(pacid=$(this).attr("data-pacid")) && pacid > 0){
+				 if(!orderDiscount){
+					 orderDiscount = true;
+				 }
+				 var orderid = $(this).parent().parent().parent().find("order_id_class").attr("data-orderid");
+				 param[orderid] = pacid;
+			 }
+		});
+		/* if(payDiscount || orderDiscount){ */
+			//参数不为空，请求服务器处理
+			$.ajax({
+				url:"/deal/preferential",
+				data:param,
+				type:"post",
+				dataType:"json",
+				complete:function(data){
+					if(data.readyState == 4 && data.status == 200){
+						var resjson = $.parseJSON(data.responseText);
+						if(resjson.success == "true"){
+							if(resjson.pay == "0"){
+								var arry = $("li[name='paytype'].checked");
+								if(arry.length > 0){
+									var zftype = arry.attr("value");
+									var targetobj = $("#payhiddenbutton");
+									if(zftype == 1){//支付宝
+										//targetobj.attr("action","/zfbpay/"+$!{payorder.payid}+"?path="$!{returnurl});
+										window.location.href = "/zfbpay/"+$!{payorder.payid}+"?path="$!{returnurl};
+									}else if(zftype == 2){//微信
+										//targetobj.attr("action","/wxpay/showqr/"+$!{payorder.payid}+"?path="$!{returnurl});
+										window.location.href = "/wxpay/showqr/"+$!{payorder.payid}+"?path="$!{returnurl};
+									}
+									//targetobj.submit();
+								}else{
+									alert("请选择支付方式！");
+									return false;
+								}
+								$('.cd-box1').addClass('is-visible');
+							}else{
+							 	$.ajax({
+							 		url:"/deal/zero",
+							 		data:{"pay":resjson.pay},
+							 		type:"post",
+							 		dataType:"json",
+							 		complete:function(data){
+							 			if(data.readyState == 4 && data.status == 200){
+							 				var resjson = $.parseJSON(data.responseText);
+							 				if(resjson.success && !!resjson.url){
+							 					window.location = resjson.url;
+							 				}else{
+							 				}
+							 			}
+							 		}
+							 	})
+							}
+							
+						}else{
+							//重试三次
+							return false;
+						}
+					}
+				}
+			});
+		/* } */
+  }
+  $(function(){
+	  calculatePrice();
+  })
+</script>
+</html>

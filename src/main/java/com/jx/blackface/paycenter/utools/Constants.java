@@ -1,0 +1,11 @@
+package com.jx.blackface.paycenter.utools;
+
+public class Constants {
+
+	public static String ali_seller_id = "2088811440926922";
+	public static String pubkey = "4h1c12ktl6hn2r1s2r198fbsp7xzl2xi";
+	
+	public static String pos_meum_id = "";
+	public static String pos_sign_key = "UDswG1GaHVhxpUtg";
+	
+}

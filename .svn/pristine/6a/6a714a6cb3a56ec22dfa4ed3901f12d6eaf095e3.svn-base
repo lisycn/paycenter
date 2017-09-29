@@ -1,0 +1,87 @@
+<div class="buy-pro">
+    <p class="pay-title">订单提交成功，请尽快付款<span  class="yf_top">应付金额：<a>￥$!{payorder.paycount}</a></span></p>
+    <p class="zk-btn"><a class="more bot-arr">订单明细</a></p>
+    <div class="tab" id="morediv">
+        <div class="tab-title">
+            <ul>
+                <li>商品</li>
+                <li>区域</li>
+                <li>城市</li>
+                <li>数量</li>
+                <li>优惠券</li>
+                <li>价格</li>
+            </ul>
+        </div>
+        #foreach($order in $orderlist)
+        <div class="tab-splist">
+        	<ul>
+		    	<li style="display: none;"><input type="hidden" data-orderid="$!{order.orderid}"/></li>
+		        <li>$!{order.proname}</li>
+		        <li>$!{order.citystr}</li>
+		        <li>$!{order.localstr}</li>
+		        <li>$!{order.sellamount}</li>
+		        <li>
+		        	  #if($order.defaultpac)
+		               <div class="n-select w-220 center" name="n-select">
+		               		<input class="n-val" type="text" value="$!{order.defaultpac.showName}" readonly data-discount="$!{order.defaultpac.quota}" data-pacid="$!{order.defaultpac.pacid}"/>
+		               #elseif($order.paccount.size() > 0)
+		               		#set($ticket = $order.paccount.get(0))
+		               		<div class="n-select w-220 center" name="n-select">
+		               		<input class="n-val" type="text" value="$!{ticket.showName}" readonly data-discount="$!{ticket.quota}" data-pacid="$!{ticket.pacid}"/>
+		               #else
+		                	<!-- <input class="n-val" type="text" value="无可用优惠券" readonly data-discount="" data-pacid=""/> -->
+		              #end
+	               
+	                  #if($order.paccount.size() > 0)
+	                   <ul>
+	                  		#foreach($coupon in $!{order.paccount})
+	                       <li data-value="$!{coupon.quota}" data-pacid="$!{coupon.pacid}">$!{coupon.showName}</li>
+	                       #end
+	                   </ul>
+	                   </div>
+	                  #end
+		        </li>
+		        <li><span class="price">¥$!{order.price}</span></li>
+		        <li class="del"><a class="del" ></a></li>
+        	</ul>
+        </div>
+        #end
+        <!-- 循环商品包列表 -->
+        #foreach($packageSellE in $!{Set_packageSellEList})
+			<div class="tc-coupon-box">
+			 <div class="tc-coupon">
+			     <ul>
+			    	 <li style="display: none;" class="mypackagesellid">$!{packageSellE.packagesell_id}</li>
+			         <li>$!{packageSellE.package_name}</li>
+			         <li></li>
+			         <li></li>
+			         <li></li>
+			         <li></li>
+			         <li>¥<span class="price">$!{packageSellE.sell_overprice}</span></li>
+			         <li class="del"><a class="del" ></a></li>
+			     </ul>
+			 </div>
+			 #foreach($packageMap in $!{packageSellE.get($!{packageSellE.packagesell_id})} )
+			 <div class="tc-list">
+			     <ul>
+			         <li>$!{packageMap.sell_product_name}</li>
+			         <li>$!{packageMap.cityname}</li>
+			         <li>$!{packageMap.aeasname}</li>
+			         <li>$!{packageMap.sell_amount}</li>
+			         <li></li>
+			         <li>¥<span class="price">$!{packageMap.sell_overprice}</span></li>
+			     </ul>
+			 </div>
+			 #end
+			</div>
+        #end
+        <div class="total-box">
+             <p class="t1 orderprice">订单价：<span>￥$!{payorder.orderprice}</span></p>
+             <p class="yhq">商品优惠：－￥0</p>
+             <p class="yf">应付金额：<span>￥$!{payorder.paycount}</span></p>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

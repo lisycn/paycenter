@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,width=device-width" />
+    <title>我的订单-国内领先的O2O自营法律服务提供商</title>
+    <meta name="description" content="注册公司找小微律政,小微律政拥有专业的律师和会计团队,小微律政专注为创业公司及中小微企业提供代办公司注册,商标注册,代理记账,社保公积金开户,公司变更,合同拟定,公司章程等一站式企业服务，小微律政服务流程每一步都无微不至。">
+    <meta name="keywords" content="小微律政,代办注册公司,公司注册,商标注册费用和流程" />
+    <link id="common_css" rel="stylesheet" href="/css/style-wx.css">
+    <script src="/js/viewport.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="pay-box">
+    #if($!{order.paystate} == 1)
+        <div class="pay-succ">
+            <p class="text succ">
+                <span class="p1">恭喜！您已成功支付！</span>
+                <span class="p2">#if(${message1}) $!{message1} #else 15分钟内小微会与您联系，请注意接听 #end</span>
+            </p>
+             <!-- 领取大红包 -->
+            <a style="margin-top: 40px;padding-top: 40px;" target="_blank" href="http://xiaoweilvzheng.mikecrm.com/ukUFD2" class="get-hb"></a>
+        </div>
+      #else  
+        <div class="pay-succ">
+            <p class="text err">
+                <span class="p1">尚未收到您的支付通知！</span>
+                <span class="p2">#if(${message1}) $!{message1} #else 15分钟内小微会与您联系，请注意接听 #end</span>
+            </p>
+        </div>
+        #end
+        <div class="pro-list">
+            <div class="name-box">
+                <p class="name">您的支付信息</p>
+            </div>
+            <div class="pay-info">
+                <p class="box"><label>支付金额：</label><span class="num">￥$!{order.paycount}</span></p>
+                <p class="box"><label>订单编号：</label><span>$!{order.payid}</span></p>
+                <!-- 1，微信 2，支付宝  3.线下刷卡  4.转账  -->
+                #set($paytype = $!{order.paychannel})
+                <p class="box"><label>支付方式：</label><span>
+                #if($!paytype == 1)
+                微信支付
+                #elseif($!paytype == 2)
+                支付宝
+                #elseif($!paytype == 3)
+                刷卡
+                #elseif($!paytype == 4)
+                转账
+                #else
+                其他
+                #end
+                </span></p>
+            </div>
+        </div>
+        <div class="btn-box">
+            <a href="http://m.lvzheng.com/" class="btn">返回首页</a>
+            <a href="http://m.lvzheng.com/m/myorder/index.html" class="btn">查看我的订单</a>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

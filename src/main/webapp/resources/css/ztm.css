@@ -1,0 +1,100 @@
+@charset "utf-8";
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+body{ -webkit-tap-highlight-color:rgba(0,0,0,0); }
+a:link,a:visited{text-decoration: none;}
+a{outline:none;}
+a img{border: 0;}
+ul li{list-style: none;}
+/*兼容性解决 安卓原生浏览器在加了bg后才渲染为block*/
+
+/* 清理浮动 */
+.f-clear:after {visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.f-clear {zoom:1;}/* for IE6 IE7 */
+.r_t1{margin-top:15px }
+.r_t2{margin-top:15px;border-top: 1px solid #d5d5d5 }
+.p_t1{padding-top:20px }
+
+body{margin: 0;padding: 0;font-family:"微软雅黑",Arial;background: #1b253b;}
+.wrapper{width: 640px; background: #f1f5f8; min-height: 1000px; margin:0 auto;}
+.bott_box{padding-bottom: 120px;}
+.clear{clear: both}
+#br_n{border-right: none;}
+
+/*注册公司专题 M页面*/
+.wrapper{width: 640px; background: #f1f5f8; min-height: 1000px; margin:0 auto;}
+.mzt-reg{background-color: #fff;min-height: 1000px}
+.mzt-reg .banner-box{width: 100%; height: 360px; background: url('../images/zt/regcom/m_banner.jpg') no-repeat center;}
+.mzt-reg .banner-box .banner{width: 640px; height: 360px; margin: 0 auto;position: relative;}
+.mzt-reg .banner-box .banner .b-tag1{position: absolute; top: 80px;left: 15px; width: 610px;height: 80px; background: url('../images/zt/regcom/m_tag1.png') no-repeat center;}
+.mzt-reg .banner-box .banner .b-tag2{position: absolute; top: 180px;left: 100px;font-size: 30px;height: 40px;line-height: 40px;color: #fff;width: 440px;text-align: center;}
+.mzt-reg .banner-box .banner .b-tag3{position: absolute; top: 255px;left: 185px;width: 2760;height: 70px}
+.mzt-reg .banner-box .banner .b-tag3 a.btn{display: inline-block;width: 270px; text-align: center; height: 70px;line-height: 70px;font-size: 36px;color: #fff;font-weight: bold;background: #ffa200;border-radius: 5px}
+.mreg-main {width: 640px;}
+.mreg-main .f-step{width: 640px;margin: 0 auto;padding: 30px 0}
+.mreg-main .f-step .title{width: 640px;margin: 0 auto;height: 50px;background: url('../images/index/line_bg.png') center repeat-x }
+.mreg-main .f-step .title p{font-size: 30px;height: 50px;line-height: 50px;color: #333; width: 330px; text-align: center; margin: 0 auto; padding: 0 10px;background: #fff}
+.mreg-main .f-step .step-box{width: 640px;margin: 40px auto 20px}
+.mreg-main .f-step .step-box ul{overflow: hidden;}
+.mreg-main .f-step .step-box ul li{width: 160px; text-align: center; height: 40px;line-height: 40px;padding: 100px 0 10px; font-size: 18px;color: #333; float: left;}
+.mreg-main .f-step .step-box ul li.s1{background: url('../images/zt/regcom/s1_ico.png')  no-repeat center top;}
+.mreg-main .f-step .step-box ul li.s2{background: url('../images/zt/regcom/s2_ico.png')  no-repeat center top;}
+.mreg-main .f-step .step-box ul li.s3{background: url('../images/zt/regcom/s3_ico.png')  no-repeat center top;}
+.mreg-main .f-step .step-box ul li.s4{background: url('../images/zt/regcom/s4_ico.png')  no-repeat center top;}
+
+.mreg-main .box1{width: 100%;height: 380px;background: url('../images/zt/regcom/boxbg1.jpg')  no-repeat center;}
+.mreg-main .box1 .con{width: 640px;height: 380px;position: relative;}
+.mreg-main .box1 .con p.peo{position: absolute; top: 80px;left: 40px}
+.mreg-main .box1 .con p.peo img{width: 175px;height: 240px}
+.mreg-main .box1 .con p.name{font-size: 42px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 85px;left: 250px}
+.mreg-main .box1 .con p.name span{color: #01ac72;font-weight: bold;}
+.mreg-main .box1 .con span.text1{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 160px;left: 250px}
+.mreg-main .box1 .con span.text2{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 205px;left: 340px}
+.mreg-main .box1 .con span.text3{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 250px;left: 290px}
+
+.mreg-main .box2{width: 100%;height: 380px;background: #fff;}
+.mreg-main .box2 .con{width: 640px;height: 380px;position: relative;}
+.mreg-main .box2 .con p.peo{position: absolute; top: 95px;left: 350px}
+.mreg-main .box2 .con p.peo img{width: 260px;height: 210px}
+.mreg-main .box2 .con p.name{font-size: 42px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 100px;left: 40px}
+.mreg-main .box2 .con p.name span{color: #01ac72;font-weight: bold;}
+.mreg-main .box2 .con span.text1{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 170px;left: 35px}
+.mreg-main .box2 .con span.text2{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 215px;left: 105px}
+.mreg-main .box2 .con span.text3{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 260px;left: 60px}
+
+.mreg-main .box3{width: 100%;height: 380px;background: url('../images/zt/regcom/boxbg2.jpg')  no-repeat center;}
+.mreg-main .box3 .con{width: 640px;height: 380px;position: relative;}
+.mreg-main .box3 .con p.peo{position: absolute; top: 90px;left: 70px}
+.mreg-main .box3 .con p.peo img{width: 135px;height: 210px}
+.mreg-main .box3 .con p.name{font-size: 42px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 85px;left: 295px}
+.mreg-main .box3 .con p.name span{color: #01ac72;font-weight: bold;}
+.mreg-main .box3 .con span.text1{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 170px;left: 295px}
+.mreg-main .box3 .con span.text2{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 215px;left: 380px}
+.mreg-main .box3 .con span.text3{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 260px;left: 315px}
+
+.mreg-main .box4{width: 100%;height: 380px;background: #fff;}
+.mreg-main .box4 .con{width: 640px;height: 380px;position: relative;}
+.mreg-main .box4 .con p.peo{position: absolute; top: 75px;left: 390px}
+.mreg-main .box4 .con p.peo img{width: 210px;height: 240px}
+.mreg-main .box4 .con p.name{font-size: 42px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 70px;left: 40px}
+.mreg-main .box4 .con p.name1{font-size: 42px;height: 50px;line-height: 50px; font-weight: bold; color: #01ac72;position: absolute;top: 125px;left: 40px}
+.mreg-main .box4 .con p.name span{color: #01ac72;font-weight: bold;}
+.mreg-main .box4 .con span.text1{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #cbe3f0;border-radius: 5px;position: absolute;top: 195px;left: 40px}
+.mreg-main .box4 .con span.text2{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #dfdfdf;border-radius: 5px;position: absolute;top: 240px;left: 150px}
+.mreg-main .box4 .con span.text3{ display: inline-block; font-size: 20px;height: 30px;line-height: 30px; padding: 2px 15px; color: #fff; background: #fab948;border-radius: 5px;position: absolute;top: 285px;left: 75px}
+
+.mreg-main .box5{width: 100%;height: 550px;background: url('../images/zt/regcom/mboxbg5.jpg')  no-repeat center;}
+.mreg-main .box5 .con{width: 640px;height: 550px;position: relative;}
+.mreg-main .box5 .con p.peo{position: absolute; top: 35px;left: 35px}
+.mreg-main .box5 .con p.peo img{width: 190px;height: 240px}
+.mreg-main .box5 .con p.name{font-size: 42px;height: 50px;line-height: 50px;color: #000;position: absolute;top: 110px;left: 205px}
+.mreg-main .box5 .con p.name1{position: absolute;top: 175px;left: 200px;}
+.mreg-main .box5 .con p.name1 img{height: 50px;width: 410px}
+.mreg-main .box5 .con div.text-box{position: absolute;top: 290px;left: 40px;width: 570px}
+.mreg-main .box5 .con div.text-box p.text{ display: block; font-size: 20px;line-height: 37px; color: #000;padding: 5px 0;min-height: 30px;}
+.mreg-main .box5 .con div.text-box p.text label{display: inline-block;width: 35px;float: left;}
+.mreg-main .box5 .con div.text-box p.text span{display: inline-block;width: 535px; float: left;}
+.mreg-main .box5 .con div.text-box p.text a{color: #fc3c3c;cursor: text;}
+
+.bot-btn{display: inline-block;width: 640px; text-align: center; height: 100px;line-height: 100px;font-size: 36px;color: #fff;background: #ffa133;display: none;}
+.mbl-navxf {position: fixed;bottom: 0px;z-index: 9000;display: block;}
+.footer{ padding: 15px 0 30px;line-height: 50px; font-size: 18px;color: #bbb;text-align: center;line-height: 25px;background: #fff}

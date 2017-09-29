@@ -1,0 +1,303 @@
+package com.jx.blackface.paycenter.controllers;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+
+import net.sf.json.JSONObject;
+
+import com.alibaba.fastjson.JSON;
+import com.jx.argo.ActionResult;
+import com.jx.argo.BeatContext;
+import com.jx.argo.annotations.Path;
+import com.jx.blackface.gaea.sell.entity.LvzSellProductEntity;
+import com.jx.blackface.gaea.usercenter.annotaion.CheckUserLogin;
+import com.jx.blackface.gaea.usercenter.entity.BFAreasEntity;
+import com.jx.blackface.gaea.usercenter.entity.OldOrderBFGEntity;
+import com.jx.blackface.orderplug.buzs.OrderBuz;
+import com.jx.blackface.orderplug.frame.RSBLL;
+import com.jx.blackface.orderplug.vo.OrderBFVo;
+import com.jx.blackface.paycenter.actionresult.ActionResultUtils;
+import com.jx.blackface.paycenter.buzs.QueryBuz;
+import com.jx.blackface.paycenter.frame.PSF;
+import com.jx.blackface.paycenter.utools.CommonUtils;
+import com.jx.blackface.paycenter.vo.OrderPayvo;
+import com.jx.blackface.paycenter.vo.SingleOrderPayvo;
+import com.jx.blackface.servicecoreclient.entity.OrderBFGEntity;
+import com.jx.blackface.servicecoreclient.entity.OrderFlowBFGEntity;
+import com.jx.blackface.servicecoreclient.entity.PayOrderBFGEntity;
+import com.jx.tradework.entity.PreferentialAccountEntity;
+import com.jx.tradework.preferentialplug.buz.PreferentialBuz;
+import com.jx.tradework.vo.PreferentialClientEntity;
+
+
+public class PayCommonController extends PayBaseController{
+
+	
+	@Path("/payresult/{payid:\\d+}")
+	@CheckUserLogin
+	public ActionResult checkpayret(long payid){
+		String url = "pay-fail";
+		long uid = getLoginUserid();
+		PayOrderBFGEntity pfo = null;
+		String orderurl = "";
+		if(payid > 0){
+			try {
+				pfo = PSF.getPayOrderbfgService().getPayOrderByid(payid);
+				
+				orderurl = "http://mycenter.lvzheng.com/orderdetail/"+payid;
+				beat().getModel().add("order", pfo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			
+			return payview("");
+		}
+		if(null != pfo && pfo.getUserid() == uid && pfo.getPaystate() == 1){
+			url = "pay-succ";
+			List<OrderBFGEntity> list = null;
+			try {
+				list = PSF.getOrderBFGService().getOrderListBycondition("payid = "+payid+" and paystate = 1", 1, 1, "orderid");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(null != list && list.size() > 0){
+				long oid = list.get(0).getOrderid();
+				OrderFlowBFGEntity ofb = null;
+				try {
+					ofb = PSF.getOrderFlowBFGService().loadOrderflowbyorderid(oid);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(ofb != null){
+					ofb.getProcessid();
+					orderurl = "http://mycenter.lvzheng.com/mywf/company/reg/"+ofb.getProcessid();
+				}
+			}
+		}
+		if(pfo == null){
+			OldOrderBFGEntity ofg = null;
+			try {
+				ofg = RSBLL.rb.getOldOrderBFGService().loadOrderbyid(payid);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(null != ofg){
+				if(ofg.getPaystate() == 2){
+					url = "pay-succ";
+				}else{
+					orderurl = "http://wwww.lvzheng.com/paylist/"+payid;
+				}
+				
+			}
+		}
+		beat().getModel().add("orderurl", orderurl);
+		return payview(url);
+	}
+	//支付方式改为侧栏
+	@Path("/reqpayGetData/{pid:\\d+}")
+	@CheckUserLogin
+	public ActionResult reqpayGetData(long pid){
+		System.out.println("test repay");
+		Map<String, Object> resultmap=new HashMap<String, Object>();
+		long uid = getLoginUserid();
+		PayOrderBFGEntity pfo = null;
+		List<SingleOrderPayvo> olist = null;
+		if(pid > 0){
+			try {
+				pfo = PSF.getPayOrderbfgService().getPayOrderByid(pid);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(pfo != null){//新订单
+			if(pfo != null && uid > 0 && pfo.getPaystate() == 1){//支付过的
+				resultmap.put("payState", "1");
+				return ActionResultUtils.renderJson(JSON.toJSONString(resultmap));
+			}
+			resultmap.put("payState", "0");
+			if(pfo != null && uid > 0 && pfo.getUserid() == uid){ 
+				try {
+					olist = QueryBuz.qb.queryOrderBypayid(pid);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(olist != null && olist.size() > 0){
+				resultmap.put("orderlist", olist);
+				resultmap.put("payorder", pfo);
+			}
+		}
+		return ActionResultUtils.renderJson(JSON.toJSONString(resultmap));
+	}
+	@Path("/reqpay/{pid:\\d+}")
+	@CheckUserLogin
+	public ActionResult reqpay(long pid){
+		long uid = getLoginUserid();
+		PayOrderBFGEntity pfo = null;
+		String returl = beat().getRequest().getParameter("returnurl");
+		if(null != returl && !"".equals(returl)){
+			beat().getModel().add("returnurl", returl);
+		}
+		List<OrderPayvo> olist = null;
+		if(pid > 0){
+			try {
+				pfo = PSF.getPayOrderbfgService().getPayOrderByid(pid);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(pfo == null){//老订单
+			
+		}else{
+			if(pfo != null && uid > 0 && pfo.getPaystate() == 1){
+				return payredirect("/payresult/"+pid);
+			}
+			if(pfo != null && uid > 0 && pfo.getUserid() == uid){
+				try {
+					olist = QueryBuz.qb.queryOrderlistBypayid(pid);
+					for(OrderPayvo order : olist){
+//						获取每个order的可用优惠券
+						List<PreferentialAccountEntity> coupons = PSF.getPreferentialAccountService().getApplicable(uid, order.getSellerid());
+						LvzSellProductEntity sellEntity = PSF.getSellProductService().getSellProductEntityById(order.getSellerid());
+						List<PreferentialClientEntity> showCoupons = PreferentialBuz.getInstance().calculatePreferential(sellEntity, coupons);
+						order.setPaccount(showCoupons);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(olist != null && olist.size() > 0){
+				beat().getModel().add("orderlist", olist);
+				beat().getModel().add("payorder", pfo);
+			}
+		}
+
+		return payview("orderconfirm");
+	}
+	@Path("/checkpay/{pid:\\d+}")
+	@CheckUserLogin
+	public ActionResult checkpay(final long pid){
+		if(pid <= 0)
+			return null;
+		
+		return new ActionResult(){
+
+			@Override
+			public void render(BeatContext beatContext) {
+				// TODO Auto-generated method stub
+				
+				HttpServletRequest request = beat().getRequest();
+				beatContext.getResponse().setCharacterEncoding("utf-8");
+				beatContext.getResponse().setContentType("text/plain");
+				try {
+					request.setCharacterEncoding("UTF-8");
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				PayOrderBFGEntity pfg = null;
+				try {
+					pfg = OrderBuz.ob.getPayorderByid(pid);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				JSONObject jo = new JSONObject();
+				if(null != pfg && pfg.getPaystate() == 1){
+					jo.put("ret", "ok");
+				}else{
+					jo.put("ret", "fail");
+				}
+				
+				try {
+					beat().getResponse().getWriter().print(jo.toString());
+					beat().getResponse().getWriter().close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}};
+	}
+	@Path("/sigleorder/{payorderid:\\d+}")
+	public ActionResult wxpay(long payorderid){
+		PayOrderBFGEntity pfg = null;
+		if(payorderid > 0){
+			try {
+				pfg = OrderBuz.ob.getPayorderByid(payorderid);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		OrderBFVo bf = null;
+		if(pfg != null && pfg.getPaystate() == 0){
+			try {
+				List<OrderBFVo> olist = OrderBuz.ob.getOrderBFGbypayorder(payorderid);
+				if(olist != null && olist.size() > 0){
+					bf = olist.get(0);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		beat().getModel().add("ordervo", bf);
+		return payview("");
+	}
+	
+	@Path("/deal/preferential")
+	public ActionResult dealPreferential(){
+		long uid = 38390039572225L;//getLoginUserid();
+		//如果有优惠活动，优惠活动跟payorder绑定，第一个参数是payorder的优惠信息，之后是order的优惠信息
+		//此版本不包含payorder优惠活动计算
+		Map<String,String[]> preferentialInfo = beat().getRequest().getParameterMap();
+		try {
+			if(!preferentialInfo.isEmpty()){
+				String orderid = "";
+				for(Map.Entry<String, String[]> entry : preferentialInfo.entrySet()){
+					if(entry.getValue() != null){
+						if(StringUtils.isEmpty(orderid)){
+							orderid = entry.getKey();
+						}
+						if(!PreferentialBuz.getInstance().orderDiscountPrePay(uid, entry.getKey(), entry.getValue()[0])){
+							continue;
+						}
+					}
+				}
+				if(!StringUtils.isEmpty(orderid)){
+					//计算payorder
+					if(!PreferentialBuz.getInstance().payOrderDiscountPrePay(orderid)){
+						return ActionResultUtils.renderText("{\"success\":\"false\"}");
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ActionResultUtils.renderText("{\"success\":\"true\"}");
+	}
+	
+	public static void main(String[] args) {
+		try {
+			List<PreferentialAccountEntity> couns = PSF.getPreferentialAccountService().getApplicable(38390039572225L,38390371469313L);
+			System.out.println(couns.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
